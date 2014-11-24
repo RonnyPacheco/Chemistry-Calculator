@@ -18,7 +18,7 @@ public class UnitConverter {
 	{
 		switch(unitOne)
 		{
-		case "Inches":
+		case "Inch":
 		case "Foot":
 		case "Yard":
 		case "Mile":
@@ -30,38 +30,44 @@ public class UnitConverter {
 	
 	static double convert(String measurementType, String unitOne, double amount, String unitTwo)
 	{
+		if(unitOne.equals(unitTwo))
+		{
+			return amount;
+		}
 		switch(measurementType)
 		{
 		case "Length":
 			
-			if(unitOne.equals("Inch") && unitTwo.equals("Gigameter"))
+			if(unitOne.equals("Inch") && unitTwo.equals("GigaMeter"))
 			{
 				amount *= ConversionKey.CENTIMETER.value / 1000000000;
 			}
-			if(unitOne.equals("Inch") && unitTwo.equals("Megameter"))
+			if(unitOne.equals("Inch") && unitTwo.equals("MegaMeter"))
 			{
 				amount *= ConversionKey.CENTIMETER.value / 1000000;
 			}
-			if(unitOne.equals("Inch") && unitTwo.equals("kilometer"))
+			if(unitOne.equals("Inch") && unitTwo.equals("kiloMeter"))
 			{
 				amount *= ConversionKey.CENTIMETER.value / 1000;
 			}
-			if(unitOne.equals("Inch") && unitTwo.equals("Decimeter"))
+			if(unitOne.equals("Inch") && unitTwo.equals("DeciMeter"))
 			{
 				amount *= ConversionKey.CENTIMETER.value / 10;
 			}
-			else if(unitOne.equals("Inch") && unitTwo.equals("Centimeter"))
+			else if(unitOne.equals("Inch") && unitTwo.equals("CentiMeter"))
 			{
 				amount *= ConversionKey.CENTIMETER.value;
 			}
-			else if(unitOne.equals("Inch") && unitTwo.equals("Millimeter"))
+			else if(unitOne.equals("Inch") && unitTwo.equals("MilliMeter"))
 			{
 				amount *= ConversionKey.CENTIMETER.value * 10;
 			}
-			else if(unitOne.equals("Inch") && unitTwo.equals("Millimeter"))
+			else if(unitOne.equals("Inch") && unitTwo.equals("MilliMeter"))
 			{
 				amount *= ConversionKey.CENTIMETER.value * 10;
 			}
+			
+			
 			
 			//--------------English System To English System below-------------------------------------
 			

@@ -2,8 +2,7 @@ package com.mdc;
 
 import java.util.logging.Logger;
 
-import com.mdc.conversion.Unit;
-
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,7 +13,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import com.mdc.conversion.Unit;
+import com.mdc.conversion.UnitConverter;
 
 public class Calculator extends Application {
 
@@ -22,6 +25,10 @@ public class Calculator extends Application {
 
 	private ComboBox<String> unitTypeCombobox;
 	private ComboBox<String> firstUnitSelector;
+	private ComboBox<String> secondUnitSelector;
+	
+	private TextField firstUnitTextField;
+	private TextField secondUnitTextField;
 
 	/**
 	 * Combo box that contains the measurement type unit.
@@ -30,8 +37,6 @@ public class Calculator extends Application {
 			.observableArrayList("Mass", "Volume", "Length", "Time");
 
 	private ObservableList<String> englishUnits = FXCollections
-			.observableArrayList();
-	private ObservableList<String> metricUnits = FXCollections
 			.observableArrayList();
 
 	/**
@@ -53,14 +58,31 @@ public class Calculator extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle(Settings.APPLICATION_NAME);
-		primaryStage.setWidth(800);
-		primaryStage.setHeight(600);
+		primaryStage.setWidth(500);
+		primaryStage.setHeight(200);
 		primaryStage.show();
 
 		unitTypeCombobox = new ComboBox<>(unitType);
+		secondUnitSelector = new ComboBox<>(englishUnits);
 		firstUnitSelector = new ComboBox<>(englishUnits);
-
-		unitTypeCombobox.setTranslateX(80);
+		
+		firstUnitTextField = new TextField();
+		secondUnitTextField = new TextField();
+		
+		firstUnitTextField.setEditable(false);
+		secondUnitTextField.setEditable(false);
+		
+		firstUnitTextField.setTranslateX(100);
+		firstUnitTextField.setTranslateY(40);
+		
+		secondUnitTextField.setTranslateX(300);
+		secondUnitTextField.setTranslateY(40);
+		
+		unitTypeCombobox.setTranslateX(190);
+		
+		secondUnitSelector.setTranslateX(300);
+		secondUnitSelector.setTranslateY(100);
+		
 		firstUnitSelector.setTranslateX(100);
 		firstUnitSelector.setTranslateY(100);
 
@@ -75,10 +97,43 @@ public class Calculator extends Application {
 		widgetContainer = new Group();
 		widgetContainer.getChildren().add(firstUnitSelector);
 		widgetContainer.getChildren().add(unitTypeCombobox);
+		widgetContainer.getChildren().add(secondUnitSelector);
+		
+		widgetContainer.getChildren().add(firstUnitTextField);
+		widgetContainer.getChildren().add(secondUnitTextField);
+		
 		widgetContainer.getChildren().add(menuBar);
 
 		Scene primaryScene = new Scene(widgetContainer);
 
+		 new AnimationTimer() {
+
+			@Override
+			public void handle(long delta) {
+				if(firstUnitTextField.isEditable())
+				{
+					if(!firstUnitTextField.getText().isEmpty())
+					{
+						try
+						{
+							System.out.println(UnitConverter.convert(
+									firstUnitSelector.getValue(), Double.parseDouble(firstUnitTextField.getText()), secondUnitSelector.getValue()));
+							secondUnitTextField.setText(String.valueOf(UnitConverter.convert(
+									firstUnitSelector.getValue(), Double.parseDouble(firstUnitTextField.getText()), secondUnitSelector.getValue())));	
+						}
+						catch(NumberFormatException e)
+						{
+							if(firstUnitTextField.getText().contains("."))
+							{
+								firstUnitTextField.setText("0");
+							}
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+			 
+		 }.start();
 		primaryStage.setScene(primaryScene);
 	}
 
@@ -88,14 +143,33 @@ public class Calculator extends Application {
 			@Override
 			public void handle(ActionEvent action) {
 				System.out.println(unitTypeCombobox.getValue());
-				System.out.println(Unit.getEnglishUnit(unitTypeCombobox
+				System.out.println(Unit.getAllUnits(unitTypeCombobox
 						.getValue()));
 				firstUnitSelector.setItems(FXCollections
 						.observableArrayList(Unit
-								.getEnglishUnit(unitTypeCombobox.getValue())));
+								.getAllUnits(unitTypeCombobox.getValue())));
+				
+				secondUnitSelector.setItems(FXCollections
+						.observableArrayList(Unit
+								.getAllUnits(unitTypeCombobox.getValue())));
+				
+				firstUnitSelector.setValue(FXCollections
+						.observableArrayList(Unit
+								.getAllUnits(unitTypeCombobox.getValue())).get(0));
+				
+				secondUnitSelector.setValue(FXCollections
+						.observableArrayList(Unit
+								.getAllUnits(unitTypeCombobox.getValue())).get(0));
+				
+				firstUnitTextField.setEditable(true);
+				secondUnitTextField.setEditable(true);
+				
+				firstUnitTextField.setText("0");
+				secondUnitTextField.setText("0");
 			}
 
 		});
+
 	}
 
 }
