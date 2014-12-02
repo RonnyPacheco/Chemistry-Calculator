@@ -2,14 +2,41 @@ package com.mdc.conversion;
 
 import java.util.ArrayList;
 
-
+/**
+ * The unit class provides us with the definitions of our metric and english system.
+ * @author Tony Erazo
+ *
+ */
 public class Unit {
 	
+	/**
+	 * List containing all the mass units of the English & Metric System.
+	 */
 	private static ArrayList<String> massUnit = new ArrayList<>();
+	
+	/**
+	 * List containing all the volume units of the English & Metric System.
+	 */
 	private static ArrayList<String> volumeUnit = new ArrayList<>();
+	
+	/**
+	 * List containing all the length units of the English & Metric System.
+	 */
 	private static ArrayList<String> lengthUnit = new ArrayList<>();
+	
+	/**
+	 * List containing all the time units.
+	 */
 	private static ArrayList<String> timeUnit = new ArrayList<>();
 	
+	/**
+	 * Prevents instantiation of this class.
+	 */
+	private Unit(){}
+	
+	/**
+	 * Static constructor adds all of our metric & english units.
+	 */
 	static
 	{
 		massUnit.addAll(EnglishSystem.massUnit);
@@ -29,6 +56,11 @@ public class Unit {
 		timeUnit.add("Year");
 	}
 	
+	/**
+	 * Gets an arraylist of all the english units
+	 * @param unit the type of unit eg Mass, Length, Volume.
+	 * @return english definitions list.
+	 */
 	public static ArrayList<String> getEnglishUnit(String unit)
 	{
 		switch(unit)
@@ -45,6 +77,11 @@ public class Unit {
 		}
 	}
 	
+	/**
+	 * Gets an arraylist of all the metric units
+	 * @param unit the type of unit eg Mass, Length, Volume.
+	 * @return metric definitions list.
+	 */
 	public static ArrayList<String> getMetricUnit(String unit)
 	{
 		switch(unit)
@@ -61,6 +98,11 @@ public class Unit {
 		}
 	}
 	
+	/**
+	 * Gets an arraylist of all the metric & english units
+	 * @param unit the type of unit eg Mass, Length, Volume.
+	 * @return metric & english definitions list.
+	 */
 	public static ArrayList<String> getAllUnits(String unit)
 	{
 		switch(unit)

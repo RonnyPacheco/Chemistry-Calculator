@@ -1,8 +1,26 @@
 package com.mdc.conversion;
 
-
+/**
+ * Unit converter handles all the chemistry formulas to converting our units.
+ * This class can convert english units to metric and vise versa.
+ * @author Tony Erazo
+ *
+ */
 public class UnitConverter {
 	
+	/**
+	 * Prevents object instantiation.
+	 */
+	private UnitConverter(){}
+	
+	/**
+	 * Converts a specified unit to another specified unit.
+	 * @param measurementType the type of measurement English or Metric unit eg Kilometer, Pound, Year, Day, Second, etc.
+	 * @param unitOne the unit converted.
+	 * @param amount the amount of the unitOne being provided to conversion.
+	 * @param unitTwo the unit we are converting unitOne to.
+	 * @return the conversion.
+	 */
 	public static double convert(String measurementType, String unitOne, double amount, String unitTwo)
 	{
 		if(unitOne.equals(unitTwo) || amount == 0)
@@ -333,6 +351,13 @@ public class UnitConverter {
 		return amount;
 	}
 	
+	/**
+	 * Converts a time unit to another specified time unit.
+	 * @param unitOne the unit converted.
+	 * @param amount the amount of the unitOne being provided to conversion.
+	 * @param unitTwo the unit we are converting unitOne to.
+	 * @return the conversion.
+	 */
 	static double convertTime(String unitOne, double amount, String unitTwo)
 	{
 		if(unitOne.equals("Minute") && unitTwo.equals("Second"))

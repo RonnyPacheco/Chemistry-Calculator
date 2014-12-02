@@ -19,15 +19,42 @@ import javafx.stage.Stage;
 import com.mdc.conversion.Unit;
 import com.mdc.conversion.UnitConverter;
 
+/**
+ * Creates a new Calculator application.
+ * @author Tony Erazo
+ * @author Ronny
+ *
+ */
 public class Calculator extends Application {
 
+	/**
+	 * Contains all our components in our stage.
+	 */
 	private Group widgetContainer;
 
+	/**
+	 * Conversion type box selector.
+	 */
 	private ComboBox<String> unitTypeCombobox;
+	
+	/**
+	 * Frist unit selection box for the conversion type.
+	 */
 	private ComboBox<String> firstUnitSelector;
+	
+	/**
+	 * Second unit selection box for the conversion type.
+	 */
 	private ComboBox<String> secondUnitSelector;
 	
+	/**
+	 * First textfield where the user inputs the value they would like to convert.
+	 */
 	private TextField firstUnitTextField;
+	
+	/**
+	 * Second textfield that shows the conversion value.
+	 */
 	private TextField secondUnitTextField;
 
 	/**
@@ -35,9 +62,6 @@ public class Calculator extends Application {
 	 */
 	private ObservableList<String> unitType = FXCollections
 			.observableArrayList("Mass", "Volume", "Length", "Time");
-
-	private ObservableList<String> englishUnits = FXCollections
-			.observableArrayList();
 
 	/**
 	 * Logs the events occuring within the entry point class.
@@ -58,13 +82,13 @@ public class Calculator extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle(Settings.APPLICATION_NAME);
-		primaryStage.setWidth(500);
-		primaryStage.setHeight(200);
+		primaryStage.setWidth(Settings.SCREEN_WIDTH);
+		primaryStage.setHeight(Settings.SCREEN_HEIGHT);
 		primaryStage.show();
 
 		unitTypeCombobox = new ComboBox<>(unitType);
-		secondUnitSelector = new ComboBox<>(englishUnits);
-		firstUnitSelector = new ComboBox<>(englishUnits);
+		secondUnitSelector = new ComboBox<>();
+		firstUnitSelector = new ComboBox<>();
 		
 		firstUnitTextField = new TextField();
 		secondUnitTextField = new TextField();
@@ -116,8 +140,6 @@ public class Calculator extends Application {
 					{
 						try
 						{
-							//System.out.println(UnitConverter.convert(
-							//		firstUnitSelector.getValue(), Double.parseDouble(firstUnitTextField.getText()), secondUnitSelector.getValue()));
 							secondUnitTextField.setText(String.valueOf(UnitConverter.convert(unitTypeCombobox.getValue(),
 									firstUnitSelector.getValue(), Double.parseDouble(firstUnitTextField.getText()), secondUnitSelector.getValue())));	
 						}
@@ -137,14 +159,14 @@ public class Calculator extends Application {
 		primaryStage.setScene(primaryScene);
 	}
 
+	/**
+	 * Adds the logic/handlers for all of our components.
+	 */
 	void setupLogic() {
 		unitTypeCombobox.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent action) {
-				//System.out.println(unitTypeCombobox.getValue());
-				//System.out.println(Unit.getAllUnits(unitTypeCombobox
-				//		.getValue()));
 				firstUnitSelector.setItems(FXCollections
 						.observableArrayList(Unit
 								.getAllUnits(unitTypeCombobox.getValue())));
