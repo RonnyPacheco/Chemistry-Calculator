@@ -1,73 +1,141 @@
 package com.mdc.conversion;
 
-public class UnitConverter {
 
-	enum ConversionKey
-	{
-		CENTIMETER(2.54);
-		
-		double value;
-		
-		private ConversionKey(double value)
-		{
-			this.value = value;
-		}
-	}
+public class UnitConverter {
 	
-	public static double convert(String unitOne, double amount, String unitTwo)
+	public static double convert(String measurementType, String unitOne, double amount, String unitTwo)
 	{
-		switch(unitOne)
-		{
-		case "Inch":
-		case "Foot":
-		case "Yard":
-		case "Mile":
-			String measurementType = "Length";
-			return convert(measurementType, unitOne, amount, unitTwo);
-		}
-		return 0.0;
-	}
-	
-	static double convert(String measurementType, String unitOne, double amount, String unitTwo)
-	{
-		if(unitOne.equals(unitTwo))
+		if(unitOne.equals(unitTwo) || amount == 0)
 		{
 			return amount;
+		}
+		else if(unitOne.contains("Kilo") && unitTwo.contains("Deci"))
+		{
+			amount *= 10000; 
+		}
+		else if(unitOne.contains("Deci") && unitTwo.contains("Kilo"))
+		{
+			amount /= 10000; 
+		}
+		else if(unitOne.contains("Kilo") && unitTwo.contains("Centi"))
+		{
+			amount *= 100000; 
+		}
+		else if(unitOne.contains("Centi") && unitTwo.contains("Kilo"))
+		{
+			amount /= 100000; 
+		}
+		else if(unitOne.contains("Kilo") && unitTwo.contains("Milli"))
+		{
+			amount *= 1000000; 
+		}
+		else if(unitOne.contains("Milli") && unitTwo.contains("Kilo"))
+		{
+			amount /= 1000000; 
+		}
+		else if(unitOne.contains("Kilo") && unitTwo.contains("Micro"))
+		{
+			amount *= 1000000000; 
+		}
+		else if(unitOne.contains("Micro") && unitTwo.contains("Kilo"))
+		{
+			amount /= 1000000000; 
+		}
+		
+		else if(unitOne.contains("Centi") && unitTwo.contains("Deci"))
+		{
+			amount /= 10; 
+		}
+		else if(unitOne.contains("Deci") && unitTwo.contains("Centi"))
+		{
+			amount *= 10; 
+		}
+		else if(unitOne.contains("Milli") && unitTwo.contains("Deci"))
+		{
+			amount /= 100; 
+		}
+		else if(unitOne.contains("Deci") && unitTwo.contains("Milli"))
+		{
+			amount *= 100; 
+		}
+		else if(unitOne.contains("Micro") && unitTwo.contains("Deci"))
+		{
+			amount /= 100000; 
+		}
+		else if(unitOne.contains("Deci") && unitTwo.contains("Micro"))
+		{
+			amount *= 100000; 
+		}
+		
+		else if(unitOne.contains("Milli") && unitTwo.contains("Centi"))
+		{
+			amount /= 10; 
+		}
+		else if(unitOne.contains("Centi") && unitTwo.contains("Milli"))
+		{
+			amount *= 10; 
+		}
+		else if(unitOne.contains("Micro") && unitTwo.contains("Centi"))
+		{
+			amount /= 10000; 
+		}
+		else if(unitOne.contains("Centi") && unitTwo.contains("Micro"))
+		{
+			amount *= 10000; 
+		}
+		
+		else if(unitOne.contains("Micro") && unitTwo.contains("Milli"))
+		{
+			amount /= 1000; 
+		}
+		else if(unitOne.contains("Milli") && unitTwo.contains("Micro"))
+		{
+			amount *= 1000; 
+		}
+		else if(unitOne.contains("Kilo"))
+		{
+			amount /= 1000;
+		}
+		else if(unitOne.contains("Deci"))
+		{
+			amount *= 10;
+		}
+		else if(unitOne.contains("Centi"))
+		{
+			amount *= 100;
+		}
+		else if(unitOne.contains("Milli"))
+		{
+			amount *= 1000;
+		}
+		else if(unitOne.contains("Micro"))
+		{
+			amount *= 1000000;
+		}
+		
+		else if(unitTwo.contains("Kilo"))
+		{
+			amount /= 1000;
+		}
+		else if(unitTwo.contains("Deci"))
+		{
+			amount *= 10;
+		}
+		else if(unitTwo.contains("Centi"))
+		{
+			amount *= 100;
+		}
+		else if(unitTwo.contains("Milli"))
+		{
+			amount *= 1000;
+		}
+		else if(unitTwo.contains("Micro"))
+		{
+			amount *= 1000000;
 		}
 		switch(measurementType)
 		{
 		case "Length":
-			
-			if(unitOne.equals("Inch") && unitTwo.equals("GigaMeter"))
-			{
-				amount *= ConversionKey.CENTIMETER.value / 1000000000;
-			}
-			if(unitOne.equals("Inch") && unitTwo.equals("MegaMeter"))
-			{
-				amount *= ConversionKey.CENTIMETER.value / 1000000;
-			}
-			if(unitOne.equals("Inch") && unitTwo.equals("kiloMeter"))
-			{
-				amount *= ConversionKey.CENTIMETER.value / 1000;
-			}
-			if(unitOne.equals("Inch") && unitTwo.equals("DeciMeter"))
-			{
-				amount *= ConversionKey.CENTIMETER.value / 10;
-			}
-			else if(unitOne.equals("Inch") && unitTwo.equals("CentiMeter"))
-			{
-				amount *= ConversionKey.CENTIMETER.value;
-			}
-			else if(unitOne.equals("Inch") && unitTwo.equals("MilliMeter"))
-			{
-				amount *= ConversionKey.CENTIMETER.value * 10;
-			}
-			else if(unitOne.equals("Inch") && unitTwo.equals("MilliMeter"))
-			{
-				amount *= ConversionKey.CENTIMETER.value * 10;
-			}
-			
-			
 			
 			//--------------English System To English System below-------------------------------------
 			
@@ -136,23 +204,136 @@ public class UnitConverter {
 			{
 				amount *= 1760;
 			}
+			
+			if(unitOne.equals("Inch") && unitTwo.contains("Meter"))
+			{
+				amount *= 0.0254;
+			}
+			else if(unitOne.contains("Meter") && unitTwo.equals("Inch"))
+			{
+				amount /= 0.0254;
+			}
+			if(unitOne.equals("Foot") && unitTwo.contains("Meter"))
+			{
+				amount *= 0.0254 * 12;
+			}
+			else if(unitOne.contains("Meter") && unitTwo.equals("Foot"))
+			{
+				amount /= 0.0254 * 12;
+			}
+			if(unitOne.equals("Yard") && unitTwo.contains("Meter"))
+			{
+				amount *= 0.0254 * 12 * 3;
+			}
+			else if(unitOne.contains("Meter") && unitTwo.equals("Yard"))
+			{
+				amount /= 0.0254 * 12 * 3;
+			}
+			if(unitOne.equals("Mile") && unitTwo.contains("Meter"))
+			{
+				amount *= 0.0254 * 12 * 3 * 1760;
+			}
+			else if(unitOne.contains("Meter") && unitTwo.equals("Mile"))
+			{
+				amount /= 0.0254 * 12 * 3 * 1760;
+			}
 			break;
 			
 		case "Mass":
-			if(unitOne.equals("Pound") && unitTwo.equals("ShortTon"))
-			{
-				amount *= 2000;
-			}
-			else if(unitOne.equals("ShortTon") && unitTwo.equals("Pound"))
+			if(unitOne.equals("Pound") && unitTwo.equals("Ton"))
 			{
 				amount /= 2000;
 			}
+			else if(unitOne.equals("Ton") && unitTwo.equals("Pound"))
+			{
+				amount *= 2000;
+			}
+			else if(unitOne.equals("Pound") && unitTwo.contains("Gram"))
+			{
+				amount *= 453.592;
+			}
+			else if(unitOne.equals("Gram") && unitTwo.contains("Pound"))
+			{
+				amount /= 453.592;
+			}
+			else if(unitOne.equals("Ton") && unitTwo.contains("Gram"))
+			{
+				amount *= 453.592 / 2000;
+			}
+			else if(unitOne.contains("Gram") && unitTwo.equals("Ton"))
+			{
+				amount /= 453.592 * 2000;
+			}
 			break;
+			
+		case "Volume":
+
+			if(unitOne.equals("Pint") && unitTwo.equals("Cup"))
+			{
+				amount *= 2;
+			}
+			else if(unitOne.equals("Cup") && unitTwo.equals("Pint"))
+			{
+				amount /= 2;
+			}
+			if(unitOne.equals("Quart") && unitTwo.equals("Cup"))
+			{
+				amount *= 2;
+				amount *= 2;
+			}
+			else if(unitOne.equals("Cup") && unitTwo.equals("Quart"))
+			{
+				amount /= 2;
+				amount /= 2;
+			}
+			if(unitOne.equals("Gallon") && unitTwo.equals("Cup"))
+			{
+				amount *= 2;
+				amount *= 2;
+				amount *= 4;
+			}
+			else if(unitOne.equals("Cup") && unitTwo.equals("Gallon"))
+			{
+				amount /= 2;
+				amount /= 2;
+				amount /= 4;
+			}
+			
+			if(unitOne.equals("Pint") && unitTwo.contains("Liter"))
+			{
+				amount *= 0.473176;
+			}
+			if(unitOne.contains("Liter") && unitTwo.equals("Pint"))
+			{
+				amount /= 0.473176;
+			}
+			if(unitOne.equals("Quart") && unitTwo.contains("Liter"))
+			{
+				amount *= 0.946353;
+			}
+			if(unitOne.contains("Liter") && unitTwo.equals("Quart"))
+			{
+				amount /= 0.946353;
+			}
+			if(unitOne.equals("Gallon") && unitTwo.contains("Liter"))
+			{
+				amount *= 3.78541;
+			}
+			if(unitOne.contains("Liter") && unitTwo.equals("Gallon"))
+			{
+				amount /= 3.78541;
+			}
+			break;
+			
+		case "Time":
+			System.out.println("Time");
+			return convertTime(unitOne, amount, unitTwo);
 		}
+		
 		return amount;
 	}
 	
-	double convertTime(String unitOne, double amount, String unitTwo)
+	static double convertTime(String unitOne, double amount, String unitTwo)
 	{
 		if(unitOne.equals("Minute") && unitTwo.equals("Second"))
 		{
@@ -173,7 +354,6 @@ public class UnitConverter {
 			amount /= 60;
 			amount /= 60;
 		}
-		
 		if(unitOne.equals("Day") && unitTwo.equals("Second"))
 		{
 			amount *= 24;
@@ -185,6 +365,36 @@ public class UnitConverter {
 			amount /= 24;
 			amount /= 60;
 			amount /= 60;
+		}
+		if(unitOne.equals("Second") && unitTwo.equals("Month"))
+		{
+			amount /= 60;
+			amount /= 60;
+			amount /= 24;
+			amount /= 30.4368;
+		}
+		if(unitOne.equals("Month") && unitTwo.equals("Second"))
+		{
+			amount *= 60;
+			amount *= 60;
+			amount *= 24;
+			amount *= 30.4368;
+		}
+		if(unitOne.equals("Second") && unitTwo.equals("Year"))
+		{
+			amount /= 60;
+			amount /= 60;
+			amount /= 24;
+			amount /= 30.4368;
+			amount /= 12;
+		}
+		if(unitOne.equals("Year") && unitTwo.equals("Second"))
+		{
+			amount *= 60;
+			amount *= 60;
+			amount *= 24;
+			amount *= 30.4368;
+			amount *= 12;
 		}
 		
 		if(unitOne.equals("Minute") && unitTwo.equals("Hour"))
@@ -205,6 +415,32 @@ public class UnitConverter {
 			amount /= 24;
 			amount /= 60;
 		}
+		if(unitOne.equals("Minute") && unitTwo.equals("Month"))
+		{
+			amount /= 60;
+			amount /= 24;
+			amount /= 30.4368;
+		}
+		if(unitOne.equals("Month") && unitTwo.equals("Minute"))
+		{
+			amount *= 60;
+			amount *= 24;
+			amount *= 30.4368;
+		}
+		if(unitOne.equals("Minute") && unitTwo.equals("Year"))
+		{
+			amount /= 60;
+			amount /= 24;
+			amount /= 30.4368;
+			amount /= 12;
+		}
+		if(unitOne.equals("Year") && unitTwo.equals("Minute"))
+		{
+			amount *= 60;
+			amount *= 24;
+			amount *= 30.4368;
+			amount *= 12;
+		}
 		
 		if(unitOne.equals("Hour") && unitTwo.equals("Day"))
 		{
@@ -213,6 +449,33 @@ public class UnitConverter {
 		else if(unitOne.equals("Day") && unitTwo.equals("Hour"))
 		{
 			amount /= 24;
+		}
+		if(unitOne.equals("Day") && unitTwo.equals("Month"))
+		{
+			amount /= 30.4368;
+		}
+		if(unitOne.equals("Month") && unitTwo.equals("Day"))
+		{
+			amount *= 30.4368;
+		}
+		if(unitOne.equals("Day") && unitTwo.equals("Year"))
+		{
+			amount /= 30.4368;
+			amount /= 12;
+		}
+		if(unitOne.equals("Year") && unitTwo.equals("Day"))
+		{
+			amount *= 30.4368;
+			amount *= 12;
+		}
+		
+		if(unitOne.equals("Year") && unitTwo.equals("Month"))
+		{
+			amount /= 12;
+		}
+		if(unitOne.equals("Month") && unitTwo.equals("Year"))
+		{
+			amount *= 12;
 		}
 		return amount;
 	}

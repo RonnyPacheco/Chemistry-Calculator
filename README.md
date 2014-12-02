@@ -1,4 +1,4 @@
 Chemistry-Calculator
 ====================
 
-Conversion Calculator
+Conversion Calculator by Tony and Ronny

@@ -8,6 +8,7 @@ public class Unit {
 	private static ArrayList<String> massUnit = new ArrayList<>();
 	private static ArrayList<String> volumeUnit = new ArrayList<>();
 	private static ArrayList<String> lengthUnit = new ArrayList<>();
+	private static ArrayList<String> timeUnit = new ArrayList<>();
 	
 	static
 	{
@@ -19,6 +20,13 @@ public class Unit {
 		
 		lengthUnit.addAll(EnglishSystem.lengthUnit);
 		lengthUnit.addAll(MetricSystem.lengthUnit);
+		
+		timeUnit.add("Second");
+		timeUnit.add("Minute");
+		timeUnit.add("Hour");
+		timeUnit.add("Day");
+		timeUnit.add("Month");
+		timeUnit.add("Year");
 	}
 	
 	public static ArrayList<String> getEnglishUnit(String unit)
@@ -63,6 +71,8 @@ public class Unit {
 			return volumeUnit;
 		case "Length":
 			return lengthUnit;
+		case "Time":
+			return timeUnit;
 		default:
 			//Return an empty arraylist
 			return new ArrayList<String>();

@@ -8,7 +8,7 @@ public class MetricSystem {
 	static ArrayList<String> lengthUnit = new ArrayList<>();
 	static ArrayList<String> massUnit = new ArrayList<>();
 	
-	private static String[] keys = new String[]{"Pico", "Nano", "Micro", "Milli", "Centi", "Deci", "", "Kilo"};
+	private static String[] keys = new String[]{"Micro", "Milli", "Centi", "Deci", "", "Kilo"};
 	static
 	{
 		

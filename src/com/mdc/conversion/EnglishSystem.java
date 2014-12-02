@@ -13,7 +13,7 @@ class EnglishSystem {
 		volumeUnit.add("Cup");
 		volumeUnit.add("Pint");
 		volumeUnit.add("Liter");
-		volumeUnit.add("Galon");
+		volumeUnit.add("Gallon");
 		
 		lengthUnit.add("Inch");
 		lengthUnit.add("Foot");

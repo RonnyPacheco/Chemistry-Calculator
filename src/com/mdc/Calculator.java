@@ -116,9 +116,9 @@ public class Calculator extends Application {
 					{
 						try
 						{
-							System.out.println(UnitConverter.convert(
-									firstUnitSelector.getValue(), Double.parseDouble(firstUnitTextField.getText()), secondUnitSelector.getValue()));
-							secondUnitTextField.setText(String.valueOf(UnitConverter.convert(
+							//System.out.println(UnitConverter.convert(
+							//		firstUnitSelector.getValue(), Double.parseDouble(firstUnitTextField.getText()), secondUnitSelector.getValue()));
+							secondUnitTextField.setText(String.valueOf(UnitConverter.convert(unitTypeCombobox.getValue(),
 									firstUnitSelector.getValue(), Double.parseDouble(firstUnitTextField.getText()), secondUnitSelector.getValue())));	
 						}
 						catch(NumberFormatException e)
@@ -142,9 +142,9 @@ public class Calculator extends Application {
 
 			@Override
 			public void handle(ActionEvent action) {
-				System.out.println(unitTypeCombobox.getValue());
-				System.out.println(Unit.getAllUnits(unitTypeCombobox
-						.getValue()));
+				//System.out.println(unitTypeCombobox.getValue());
+				//System.out.println(Unit.getAllUnits(unitTypeCombobox
+				//		.getValue()));
 				firstUnitSelector.setItems(FXCollections
 						.observableArrayList(Unit
 								.getAllUnits(unitTypeCombobox.getValue())));
