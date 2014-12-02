@@ -8,12 +8,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import com.mdc.conversion.Unit;
@@ -62,6 +70,16 @@ public class Calculator extends Application {
 	 */
 	private ObservableList<String> unitType = FXCollections
 			.observableArrayList("Mass", "Volume", "Length", "Time");
+	
+	/**
+	 * About Menu Item binded to the help menu.
+	 */
+	private MenuItem aboutMenuItem;
+	
+	/**
+	 * Problem Assistant Menu Item binded to the help menu.
+	 */
+	private MenuItem problemAssistant;
 
 	/**
 	 * Logs the events occuring within the entry point class.
@@ -111,12 +129,16 @@ public class Calculator extends Application {
 		firstUnitSelector.setTranslateY(100);
 
 		Menu helpmenu = new Menu("Help");
-
+		aboutMenuItem = new MenuItem("About");
+		problemAssistant = new MenuItem("Problem Assistant");
+		
 		MenuBar menuBar = new MenuBar();
 		menuBar.getMenus().addAll(helpmenu);
 		menuBar.setUseSystemMenuBar(true);
+		helpmenu.getItems().add(problemAssistant);
+		helpmenu.getItems().add(aboutMenuItem);
 
-		setupLogic();
+		setupLogic(primaryStage);
 
 		widgetContainer = new Group();
 		widgetContainer.getChildren().add(firstUnitSelector);
@@ -162,7 +184,77 @@ public class Calculator extends Application {
 	/**
 	 * Adds the logic/handlers for all of our components.
 	 */
-	void setupLogic() {
+	void setupLogic(Stage primaryStage) {
+
+		problemAssistant.setOnAction(new EventHandler<ActionEvent>()
+				{
+
+					@Override
+					public void handle(ActionEvent event) {
+						final Stage comingSoonDialog = new Stage();
+						final Button okButton = new Button("Ok");
+						
+						okButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+								{
+
+									@Override
+									public void handle(MouseEvent event) {
+										comingSoonDialog.close();
+									}
+							
+								});
+						
+		                comingSoonDialog.initModality(Modality.WINDOW_MODAL);
+		                comingSoonDialog.setTitle("Problem Assistant");
+		                comingSoonDialog.initOwner(primaryStage);
+		                VBox dialogVbox = new VBox(20);
+		                dialogVbox.getChildren().add(new Text("Were sorry for the inconvenience but this feature\n has not been added yet, it will be added on \nthe next update! :)"));
+		                dialogVbox.setAlignment(Pos.CENTER);
+		                dialogVbox.getChildren().add(okButton);
+		                Scene aboutDialogScene = new Scene(dialogVbox, 300, 100);
+		                comingSoonDialog.setScene(aboutDialogScene);
+		                comingSoonDialog.show();
+					}
+			
+				});
+		aboutMenuItem.setOnAction(new EventHandler<ActionEvent>()
+				{
+
+					@Override
+					public void handle(ActionEvent event) {
+						final Stage aboutDialog = new Stage();
+						final Button okButton = new Button("Ok");
+						
+						okButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+								{
+
+									@Override
+									public void handle(MouseEvent event) {
+										aboutDialog.close();
+									}
+							
+								});
+						
+		                aboutDialog.initModality(Modality.WINDOW_MODAL);
+		                aboutDialog.setTitle("About");
+		                aboutDialog.initOwner(primaryStage);
+		                VBox dialogVbox = new VBox(20);
+		                dialogVbox.getChildren().add(new Text("The purpose of this application is to provide students a \nfriendly and accurate way to solve conversion problems.\n"+
+		                "The calculator will display the steps taken, thus assisting\n the student in solving a specific conversion problem\n." +  
+		                "It may also guide students to learning conversion.\n This application will also provide a help section that\n will provide " +
+		                "an easy “how to use” section that will \nexplain how to use the application.\n We believe "+
+		                "conversion is a vital topic in chemistry and\n other science courses,\n it should be well "+
+		                "understood as it is elaborated\n later on other subjects such as calorimetry, \nfactorization "+
+		                		"conversion and much more"));
+		                dialogVbox.setAlignment(Pos.CENTER);
+		                dialogVbox.getChildren().add(okButton);
+		                Scene aboutDialogScene = new Scene(dialogVbox, 320, 260);
+		                aboutDialog.setScene(aboutDialogScene);
+		                aboutDialog.show();
+					}
+			
+				});
+		
 		unitTypeCombobox.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
