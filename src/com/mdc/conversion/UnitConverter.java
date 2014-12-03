@@ -317,6 +317,14 @@ public class UnitConverter {
 				amount /= 4;
 			}
 			
+			if(unitOne.equals("Liter") && unitTwo.equals("Cup"))
+			{
+				amount /= 0.236588;
+			}
+			else if(unitOne.equals("Cup") && unitTwo.equals("Liter"))
+			{
+				amount *= 0.236588;
+			}	
 			if(unitOne.equals("Pint") && unitTwo.contains("Liter"))
 			{
 				amount *= 0.473176;
