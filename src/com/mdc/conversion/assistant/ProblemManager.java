@@ -4,23 +4,31 @@ import javafx.scene.layout.VBox;
 
 public class ProblemManager {
 	
-	private boolean hadPreviousHandler;
 	private ProblemHandler currentHandler;
 	public void submit(ProblemHandler problemAssistant, VBox layout)
 	{
 		this.currentHandler = problemAssistant;
-		hadPreviousHandler = true;
 		currentHandler.onStart(layout);
 	}
 	
-	public void next()
+	/**
+	 * Flags if its possible to go to the next stage of the handler if it is it will go to the next stage.
+	 */
+	public boolean next()
 	{
 		if(currentHandler != null)
-			currentHandler.next();
+		{
+			return currentHandler.next();
+		}
+		return false;
 	}
 	
-	public boolean hadPreviousHandler()
+	/**
+	 * Gets the current handler assigned to the manager.
+	 * @return handler.
+	 */
+	public ProblemHandler getCurrentHandler()
 	{
-		return hadPreviousHandler;
+		return currentHandler;
 	}
 }

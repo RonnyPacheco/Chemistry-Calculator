@@ -12,13 +12,13 @@ public abstract class ProblemHandler {
 	/**
 	 * The maximum amount of stages..
 	 */
-	private int maxStages;
+	private final int maxStages;
 	
 	/**
 	 * Creates a problem assitant with a predefined amount of stages.
 	 * @param maxStages
 	 */
-	protected ProblemHandler(int maxStages)
+	public ProblemHandler(int maxStages)
 	{
 		if(maxStages < 1)
 			throw new IllegalStateException("The final stage must be greater than 1");
@@ -50,13 +50,23 @@ public abstract class ProblemHandler {
 	}
 	
 	/**
-	 * Goes to the next stage of the handler.
+	 * Flags if its possible to go to the next stage of the handler if it is it will go to the next stage.
 	 */
-	public void next()
+	public boolean next()
 	{
 		if(stage < maxStages)
 		{
 			stage++;
+			return true;
 		}
+		return false;
+	}
+	
+	/**
+	 * Resets the current stage of the handler
+	 */
+	public void reset()
+	{
+		this.stage = 1;
 	}
 }

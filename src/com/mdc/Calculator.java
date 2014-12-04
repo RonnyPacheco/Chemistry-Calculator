@@ -13,7 +13,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -227,20 +226,26 @@ public class Calculator extends Application {
 									{
 										if(event.getClickCount() == 2)
 										{
-											if(!handlerLayout.getChildren().isEmpty() && manager.hadPreviousHandler())
+											if(!handlerLayout.getChildren().isEmpty())
+											{
 												handlerLayout.getChildren().clear();
-											manager.submit(parser.getHandlers().get(list.getSelectionModel().getSelectedItem()), handlerLayout);	
+												manager.getCurrentHandler().reset();	
+											}
+											manager.submit(parser.getHandlers().get(list.getSelectionModel().getSelectedItem()), handlerLayout);
 										}
 									}
 							
 								});
+						
 						nextButton.setOnMouseClicked(new EventHandler<MouseEvent>()
 								{
 
 									@Override
 									public void handle(MouseEvent event) {
-										manager.next();
-										manager.submit(parser.getHandlers().get(list.getSelectionModel().getSelectedItem()), handlerLayout);
+										if(manager.next())
+										{
+											manager.submit(parser.getHandlers().get(list.getSelectionModel().getSelectedItem()), handlerLayout);	
+										}
 									}
 							
 								});
@@ -249,14 +254,13 @@ public class Calculator extends Application {
 		                comingSoonDialog.setTitle("Problem Assistant");
 		                comingSoonDialog.initOwner(primaryStage);
 
-		               // dialogVbox.setAlignment(Pos.CENTER);
 		                Group group = new Group();
 		            
 		                group.getChildren().add(list);
 		                group.getChildren().add(nextButton);
 		                group.getChildren().add(handlerLayout);
 		            
-		                Scene aboutDialogScene = new Scene(group, 500, 400);
+		                Scene aboutDialogScene = new Scene(group, 550, 400);
 		                comingSoonDialog.setScene(aboutDialogScene);
 		                comingSoonDialog.show();
 					}

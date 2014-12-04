@@ -14,14 +14,15 @@ import com.mdc.conversion.assistant.ProblemHandler;
  */
 public class TimeConversionProblem extends ProblemHandler {
 
+	/**
+	 * Creates the sample problem.
+	 */
 	public TimeConversionProblem() {
 		super(3);
 	}
 
 	@Override
 	public void onStart(Pane layout) {
-
-		System.out.println("Time conversion on start");
 		switch (stage) {
 		case 1:
 			layout.getChildren().add(new Text("We will be solving the following"));

@@ -69,9 +69,9 @@ public class TrfParser {
 			if (line.contains("#")) {
 				String thePackage = stringModifier.removeSingleChar(line, line.indexOf("#"));
 				String name = stringModifier.substringFirstCapitalChar(thePackage);
-				Class<?> handlerClass;
 				try {
-					handlerClass = Class.forName(thePackage);
+					Class<?> handlerClass = Class.forName(thePackage);
+					System.out.println(thePackage);
 					Object handlerInstance = handlerClass.newInstance();
 					classes.put(name, (ProblemHandler) handlerInstance);
 				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
