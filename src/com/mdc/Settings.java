@@ -3,7 +3,7 @@ package com.mdc;
 /**
  * Contains constants settings of our application.
  * @author Tony Erazo
- *
+ * @author Ronny
  */
 public class Settings {
 

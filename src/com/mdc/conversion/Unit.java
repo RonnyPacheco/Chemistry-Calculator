@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * The unit class provides us with the definitions of our metric and english system.
  * @author Tony Erazo
- *
+ * @author Ronny
  */
 public class Unit {
 	

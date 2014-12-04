@@ -8,7 +8,7 @@ import com.mdc.conversion.assistant.ProblemHandler;
 /**
  * Sample problem showing how to convert cups to pint.
  * @author Tony Erazo
- *
+ * @author Ronny
  */
 public class CupToPintProblem extends ProblemHandler{
 

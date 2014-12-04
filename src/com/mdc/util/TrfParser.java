@@ -13,7 +13,6 @@ import com.mdc.conversion.assistant.ProblemHandler;
 /**
  * The TrfParser is designed to read .trf files which load classes into our application.
  * @author Tony Erazo
- *
  */
 public class TrfParser {
 

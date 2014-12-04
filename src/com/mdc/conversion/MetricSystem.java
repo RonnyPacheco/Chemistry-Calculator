@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Hidden class that contains all our metric system definitions.
  * @author Tony Erazo
- *
+ * @author Ronny
  */
 class MetricSystem {
 

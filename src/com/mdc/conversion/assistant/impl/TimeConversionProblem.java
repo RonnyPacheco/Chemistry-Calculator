@@ -10,7 +10,7 @@ import com.mdc.conversion.assistant.ProblemHandler;
  * system.
  * 
  * @author Tony Erazo
- *
+ * @author Ronny
  */
 public class TimeConversionProblem extends ProblemHandler {
 

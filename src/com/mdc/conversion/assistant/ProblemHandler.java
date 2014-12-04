@@ -2,6 +2,13 @@ package com.mdc.conversion.assistant;
 
 import javafx.scene.layout.Pane;
 
+/**
+ * Problem handler is a super class used to create problem handlers which provide the user with the steps on how to solve a problem 
+ * please see {@link CupToPintProblem} for an implementation  example..
+ * @author Tony Erazo
+ * @author Ronny
+ *
+ */
 public abstract class ProblemHandler {
 
 	/**

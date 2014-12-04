@@ -1,13 +1,27 @@
 package com.mdc.conversion.assistant;
 
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.Pane;
 
+/**
+ * The problem manager handles all the sample problems on how to solve certain conversion formulas.
+ * @author Tony Erazo
+ *
+ */
 public class ProblemManager {
 	
+	/**
+	 * Current handler binded to the manager.
+	 */
 	private ProblemHandler currentHandler;
-	public void submit(ProblemHandler problemAssistant, VBox layout)
+	
+	/**
+	 * Submits a problem to be handled by the manager.
+	 * @param problem the handler.
+	 * @param layout the layout of the application.
+	 */
+	public void submit(ProblemHandler problem, Pane layout)
 	{
-		this.currentHandler = problemAssistant;
+		this.currentHandler = problem;
 		currentHandler.onStart(layout);
 	}
 	

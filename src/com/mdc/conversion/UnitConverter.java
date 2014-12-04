@@ -4,7 +4,7 @@ package com.mdc.conversion;
  * Unit converter handles all the chemistry formulas to converting our units.
  * This class can convert english units to metric and vise versa.
  * @author Tony Erazo
- *
+ * @author Ronny
  */
 public class UnitConverter {
 	
