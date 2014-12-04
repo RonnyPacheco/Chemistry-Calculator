@@ -2,3 +2,4 @@ This file loads all of our handlers using reflection.
 
 #com.mdc.conversion.assistant.impl.TimeConversionProblem
 #com.mdc.conversion.assistant.impl.CupToPintProblem
+#com.mdc.conversion.assistant.impl.GallonToLiterProblem

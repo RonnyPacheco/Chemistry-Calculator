@@ -1,5 +1,10 @@
 package com.mdc.conversion.assistant.impl;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
@@ -15,10 +20,19 @@ import com.mdc.conversion.assistant.ProblemHandler;
 public class TimeConversionProblem extends ProblemHandler {
 
 	/**
+	 * Image of a clock.
+	 */
+	private Image clock;
+	/**
 	 * Creates the sample problem.
 	 */
 	public TimeConversionProblem() {
 		super(3);
+		try {
+			clock = new Image(new FileInputStream("./data/images/clock.png"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -34,6 +48,7 @@ public class TimeConversionProblem extends ProblemHandler {
 			break;
 		case 3:
 			layout.getChildren().add(new Text("The answer is 60 minutes."));
+			layout.getChildren().add(new ImageView(clock));
 			break;
 		}
 	}
