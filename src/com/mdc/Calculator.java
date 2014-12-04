@@ -13,6 +13,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -25,6 +27,8 @@ import javafx.stage.Stage;
 
 import com.mdc.conversion.Unit;
 import com.mdc.conversion.UnitConverter;
+import com.mdc.conversion.assistant.ProblemManager;
+import com.mdc.util.TrfParser;
 
 /**
  * Creates a new Calculator application.
@@ -78,13 +82,22 @@ public class Calculator extends Application {
 	/**
 	 * Problem Assistant Menu Item binded to the help menu.
 	 */
-	private MenuItem problemAssistant;
+	private MenuItem problemAssistantMenuItem;
 
 	/**
 	 * Logs the events occuring within the entry point class.
 	 */
 	private static Logger logger = Logger.getLogger(Calculator.class.getName());
 
+	/**
+	 * Trf parser.
+	 */
+	private TrfParser parser = new TrfParser();
+	
+	/**
+	 * Manages the problem handlers.
+	 */
+	private ProblemManager manager = new ProblemManager();
 	/**
 	 * Entry-point of the application.
 	 * 
@@ -102,6 +115,8 @@ public class Calculator extends Application {
 		primaryStage.setWidth(Settings.SCREEN_WIDTH);
 		primaryStage.setHeight(Settings.SCREEN_HEIGHT);
 		primaryStage.show();
+		
+		parser.loadHandlers();
 
 		unitTypeCombobox = new ComboBox<>(unitType);
 		secondUnitSelector = new ComboBox<>();
@@ -129,12 +144,12 @@ public class Calculator extends Application {
 
 		Menu helpmenu = new Menu("Help");
 		aboutMenuItem = new MenuItem("About");
-		problemAssistant = new MenuItem("Problem Assistant");
+		problemAssistantMenuItem = new MenuItem("Problem Assistant");
 		
 		MenuBar menuBar = new MenuBar();
 		menuBar.getMenus().addAll(helpmenu);
 		menuBar.setUseSystemMenuBar(true);
-		helpmenu.getItems().add(problemAssistant);
+		helpmenu.getItems().add(problemAssistantMenuItem);
 		helpmenu.getItems().add(aboutMenuItem);
 
 		setupLogic(primaryStage);
@@ -185,20 +200,47 @@ public class Calculator extends Application {
 	 */
 	void setupLogic(Stage primaryStage) {
 
-		problemAssistant.setOnAction(new EventHandler<ActionEvent>()
+		problemAssistantMenuItem.setOnAction(new EventHandler<ActionEvent>()
 				{
 
 					@Override
 					public void handle(ActionEvent event) {
 						final Stage comingSoonDialog = new Stage();
-						final Button okButton = new Button("Ok");
+						final Button nextButton = new Button("Next");
 						
-						okButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+						ListView<String> list = new ListView<String>();
+						
+						
+						ObservableList<String> items =FXCollections.observableArrayList(parser.getHandlerNames());
+						list.setItems(items);
+						
+						VBox handlerLayout = new VBox();
+						handlerLayout.setTranslateX(250);
+						nextButton.setTranslateX(320);
+						nextButton.setTranslateY(370);
+	
+						list.setOnMouseClicked(new EventHandler<MouseEvent>()
+								{
+
+									@Override
+									public void handle(MouseEvent event) 
+									{
+										if(event.getClickCount() == 2)
+										{
+											if(!handlerLayout.getChildren().isEmpty() && manager.hadPreviousHandler())
+												handlerLayout.getChildren().clear();
+											manager.submit(parser.getHandlers().get(list.getSelectionModel().getSelectedItem()), handlerLayout);	
+										}
+									}
+							
+								});
+						nextButton.setOnMouseClicked(new EventHandler<MouseEvent>()
 								{
 
 									@Override
 									public void handle(MouseEvent event) {
-										comingSoonDialog.close();
+										manager.next();
+										manager.submit(parser.getHandlers().get(list.getSelectionModel().getSelectedItem()), handlerLayout);
 									}
 							
 								});
@@ -206,11 +248,15 @@ public class Calculator extends Application {
 		                comingSoonDialog.initModality(Modality.WINDOW_MODAL);
 		                comingSoonDialog.setTitle("Problem Assistant");
 		                comingSoonDialog.initOwner(primaryStage);
-		                VBox dialogVbox = new VBox(20);
-		                dialogVbox.getChildren().add(new Text("Were sorry for the inconvenience but this feature\n has not been added yet, it will be added on \nthe next update! :)"));
-		                dialogVbox.setAlignment(Pos.CENTER);
-		                dialogVbox.getChildren().add(okButton);
-		                Scene aboutDialogScene = new Scene(dialogVbox, 300, 100);
+
+		               // dialogVbox.setAlignment(Pos.CENTER);
+		                Group group = new Group();
+		            
+		                group.getChildren().add(list);
+		                group.getChildren().add(nextButton);
+		                group.getChildren().add(handlerLayout);
+		            
+		                Scene aboutDialogScene = new Scene(group, 500, 400);
 		                comingSoonDialog.setScene(aboutDialogScene);
 		                comingSoonDialog.show();
 					}
