@@ -47,7 +47,7 @@ public class TimeConversionProblem extends ProblemHandler {
 			layout.getChildren().add(new Text("60 x 1 = 60"));
 			break;
 		case 3:
-			layout.getChildren().add(new Text("The answer is 60 minutes."));
+			layout.getChildren().add(new Text("The answer is 60 seconds."));
 			layout.getChildren().add(new ImageView(clock));
 			break;
 		}
